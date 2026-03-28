@@ -4,13 +4,15 @@ import com.example.oop_week11.entity.Match;
 import com.example.oop_week11.entity.Player;
 import com.example.oop_week11.entity.SoccerEntity;
 import com.example.oop_week11.entity.Team;
+import com.example.oop_week11.iterator.EntityIterator;
+import com.example.oop_week11.iterator.ListIterator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-public class DataProvider<T extends SoccerEntity> {
+public class DataProvider<T extends SoccerEntity> implements Iterable<T> {
     private final List<T> items;
 
     public DataProvider() {
@@ -28,6 +30,11 @@ public class DataProvider<T extends SoccerEntity> {
 
     public List<T> getItems() {
         return new ArrayList<>(items);
+    }
+
+    @Override
+    public EntityIterator<T> iterator() {
+        return new ListIterator<>(items);
     }
 
     public static DataProvider<Team> createSampleTeams() {
