@@ -9,6 +9,10 @@ public class PlayerRepository extends Repository<Player> {
         super();
     }
 
+    public PlayerRepository(DataProvider<Player> dataProvider) {
+        super(dataProvider);
+    }
+
     public List<Player> filterByTeam(String teamName) {
         return filter(player -> player.getTeam().equals(teamName));
     }

@@ -14,6 +14,10 @@ public abstract class Repository<T extends SoccerEntity> {
         this.items = new ArrayList<>();
     }
 
+    public Repository(DataProvider<T> dataProvider) {
+        this.items = dataProvider.getItems();
+    }
+
     public List<T> getAll() {
         return items;
     }
