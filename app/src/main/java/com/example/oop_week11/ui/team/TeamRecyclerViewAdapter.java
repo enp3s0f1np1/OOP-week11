@@ -10,14 +10,15 @@ import android.widget.TextView;
 import com.example.oop_week11.databinding.FragmentTeamBinding;
 import com.example.oop_week11.entity.Team;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TeamRecyclerViewAdapter extends RecyclerView.Adapter<TeamRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Team> teams;
+    private final List<Team> teams = new ArrayList<>();
 
     public TeamRecyclerViewAdapter(List<Team> teams) {
-        this.teams = teams;
+        updateTeams(teams);
     }
 
     @Override
@@ -37,6 +38,12 @@ public class TeamRecyclerViewAdapter extends RecyclerView.Adapter<TeamRecyclerVi
     @Override
     public int getItemCount() {
         return teams.size();
+    }
+
+    public void updateTeams(List<Team> updatedTeams) {
+        teams.clear();
+        teams.addAll(updatedTeams);
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

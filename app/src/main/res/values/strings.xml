@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">oop-week11</string>
+    <string name="search_players_hint">Search players</string>
+    <string name="search_teams_hint">Search teams</string>
+    <string name="search_matches_hint">Search matches</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

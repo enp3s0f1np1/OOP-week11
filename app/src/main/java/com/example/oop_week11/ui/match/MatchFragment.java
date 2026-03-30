@@ -15,16 +15,20 @@ import android.view.ViewGroup;
 import com.example.oop_week11.R;
 import com.example.oop_week11.repository.DataProvider;
 import com.example.oop_week11.repository.MatchRepository;
+import com.example.oop_week11.ui.main.SearchablePage;
 
 /**
  * A fragment representing a list of Items.
  */
-public class MatchFragment extends Fragment {
+public class MatchFragment extends Fragment implements SearchablePage {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
+    private MatchRepository repository;
+    private MatchRecyclerViewAdapter adapter;
+    private String searchQuery = "";
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -50,12 +54,14 @@ public class MatchFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
+        repository = new MatchRepository(DataProvider.createSampleMatches());
+        adapter = new MatchRecyclerViewAdapter(repository.getAll());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_match_list, container, false);
-        MatchRepository repository = new MatchRepository(DataProvider.createSampleMatches());
 
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -65,8 +71,14 @@ public class MatchFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MatchRecyclerViewAdapter(repository.getAll()));
+            recyclerView.setAdapter(adapter);
         }
+        applySearchQuery(searchQuery);
         return view;
+    }
+
+    @Override
+    public void applySearchQuery(String query) {
+        adapter.updateMatches(repository.search(searchQuery));
     }
 }

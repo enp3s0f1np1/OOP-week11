@@ -10,14 +10,15 @@ import android.widget.TextView;
 import com.example.oop_week11.databinding.FragmentMatchBinding;
 import com.example.oop_week11.entity.Match;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MatchRecyclerViewAdapter extends RecyclerView.Adapter<MatchRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Match> matches;
+    private final List<Match> matches = new ArrayList<>();
 
     public MatchRecyclerViewAdapter(List<Match> matches) {
-        this.matches = matches;
+        updateMatches(matches);
     }
 
     @Override
@@ -37,6 +38,12 @@ public class MatchRecyclerViewAdapter extends RecyclerView.Adapter<MatchRecycler
     @Override
     public int getItemCount() {
         return matches.size();
+    }
+
+    public void updateMatches(List<Match> updatedMatches) {
+        matches.clear();
+        matches.addAll(updatedMatches);
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

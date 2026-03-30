@@ -15,16 +15,20 @@ import android.view.ViewGroup;
 import com.example.oop_week11.R;
 import com.example.oop_week11.repository.DataProvider;
 import com.example.oop_week11.repository.TeamRepository;
+import com.example.oop_week11.ui.main.SearchablePage;
 
 /**
  * A fragment representing a list of Items.
  */
-public class TeamFragment extends Fragment {
+public class TeamFragment extends Fragment implements SearchablePage {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
+    private TeamRepository repository;
+    private TeamRecyclerViewAdapter adapter;
+    private String searchQuery = "";
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -50,12 +54,14 @@ public class TeamFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
+        repository = new TeamRepository(DataProvider.createSampleTeams());
+        adapter = new TeamRecyclerViewAdapter(repository.getAll());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_team_list, container, false);
-        TeamRepository repository = new TeamRepository(DataProvider.createSampleTeams());
 
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -65,8 +71,14 @@ public class TeamFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new TeamRecyclerViewAdapter(repository.getAll()));
+            recyclerView.setAdapter(adapter);
         }
+        applySearchQuery(searchQuery);
         return view;
+    }
+
+    @Override
+    public void applySearchQuery(String query) {
+        adapter.updateTeams(repository.search(searchQuery));
     }
 }

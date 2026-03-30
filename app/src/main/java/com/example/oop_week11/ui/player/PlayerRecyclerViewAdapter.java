@@ -10,14 +10,15 @@ import android.widget.TextView;
 import com.example.oop_week11.databinding.FragmentPlayerBinding;
 import com.example.oop_week11.entity.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerRecyclerViewAdapter extends RecyclerView.Adapter<PlayerRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Player> players;
+    private final List<Player> players = new ArrayList<>();
 
     public PlayerRecyclerViewAdapter(List<Player> players) {
-        this.players = players;
+        updatePlayers(players);
     }
 
     @Override
@@ -37,6 +38,12 @@ public class PlayerRecyclerViewAdapter extends RecyclerView.Adapter<PlayerRecycl
     @Override
     public int getItemCount() {
         return players.size();
+    }
+
+    public void updatePlayers(List<Player> updatedPlayers) {
+        players.clear();
+        players.addAll(updatedPlayers);
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
