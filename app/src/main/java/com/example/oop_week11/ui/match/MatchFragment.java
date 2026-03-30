@@ -37,7 +37,6 @@ public class MatchFragment extends Fragment implements SearchablePage {
     public MatchFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static MatchFragment newInstance(int columnCount) {
         MatchFragment fragment = new MatchFragment();

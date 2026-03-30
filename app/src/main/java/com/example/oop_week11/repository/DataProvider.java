@@ -23,11 +23,6 @@ public class DataProvider<T extends SoccerEntity> implements Iterable<T> {
         this.items = new ArrayList<>(items);
     }
 
-    @SafeVarargs
-    public static <T extends SoccerEntity> DataProvider<T> of(T... items) {
-        return new DataProvider<>(Arrays.asList(items));
-    }
-
     public List<T> getItems() {
         return new ArrayList<>(items);
     }
@@ -35,6 +30,11 @@ public class DataProvider<T extends SoccerEntity> implements Iterable<T> {
     @Override
     public EntityIterator<T> iterator() {
         return new ListIterator<>(items);
+    }
+
+    @SafeVarargs
+    public static <T extends SoccerEntity> DataProvider<T> of(T... items) {
+        return new DataProvider<>(Arrays.asList(items));
     }
 
     public static DataProvider<Team> createSampleTeams() {

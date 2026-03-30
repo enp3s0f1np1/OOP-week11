@@ -19,7 +19,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String STATE_SEARCH_QUERY = "search_query";
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
     private SearchView searchView;
@@ -85,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // update search result when page changes
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
@@ -92,20 +92,6 @@ public class MainActivity extends AppCompatActivity {
                 applySearchQuery(currentQuery);
             }
         });
-
-        if (savedInstanceState != null) {
-            currentQuery = savedInstanceState.getString(STATE_SEARCH_QUERY, "");
-        }
-
-        searchView.setQueryHint(searchHints.get(viewPager.getCurrentItem()));
-        searchView.setQuery(currentQuery, false);
-        applySearchQuery(currentQuery);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString(STATE_SEARCH_QUERY, currentQuery);
     }
 
     private void applySearchQuery(String query) {

@@ -22,9 +22,7 @@ import com.example.oop_week11.ui.main.SearchablePage;
  */
 public class TeamFragment extends Fragment implements SearchablePage {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private TeamRepository repository;
     private TeamRecyclerViewAdapter adapter;
@@ -36,8 +34,6 @@ public class TeamFragment extends Fragment implements SearchablePage {
      */
     public TeamFragment() {
     }
-
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static TeamFragment newInstance(int columnCount) {
         TeamFragment fragment = new TeamFragment();

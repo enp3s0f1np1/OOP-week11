@@ -37,7 +37,6 @@ public class PlayerFragment extends Fragment implements SearchablePage {
     public PlayerFragment() {
     }
 
-    // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static PlayerFragment newInstance(int columnCount) {
         PlayerFragment fragment = new PlayerFragment();
