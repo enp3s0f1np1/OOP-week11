@@ -79,6 +79,9 @@ public class MatchFragment extends Fragment implements SearchablePage {
 
     @Override
     public void applySearchQuery(String query) {
-        adapter.updateMatches(repository.search(searchQuery));
+        searchQuery = query == null ? "" : query;
+        if (repository != null && adapter != null) {
+            adapter.updateMatches(repository.search(searchQuery));
+        }
     }
 }

@@ -79,6 +79,9 @@ public class PlayerFragment extends Fragment implements SearchablePage {
 
     @Override
     public void applySearchQuery(String query) {
-        adapter.updatePlayers(repository.search(searchQuery));
+        searchQuery = query == null ? "" : query;
+        if (repository != null && adapter != null) {
+            adapter.updatePlayers(repository.search(searchQuery));
+        }
     }
 }

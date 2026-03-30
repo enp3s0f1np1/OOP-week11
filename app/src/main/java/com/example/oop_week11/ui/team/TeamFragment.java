@@ -79,6 +79,9 @@ public class TeamFragment extends Fragment implements SearchablePage {
 
     @Override
     public void applySearchQuery(String query) {
-        adapter.updateTeams(repository.search(searchQuery));
+        searchQuery = query == null ? "" : query;
+        if (repository != null && adapter != null) {
+            adapter.updateTeams(repository.search(searchQuery));
+        }
     }
 }
